@@ -1,0 +1,10 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.linhaLogosFooter  {
+    position: absolute;
+    width: 1000px;
+    bottom: 30px;
+}
