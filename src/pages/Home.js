@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
+import { fetchQuizData } from '../api';
 import iconeCorra from '../assets/ícone_branco.png'
+import Footer from '../components/footer'
 
 import '../style/global.css';
 import '../style/homepage.css';
 
 function HomePage() {
+    const [quizData, setQuizData] = useState([]);
+
+    useEffect(() => {
+        fetchQuizData()
+        .then(data => {
+            setQuizData(data);
+        })
+        .catch(error => console.error('Erro ao buscar dados:', error));
+    }, []);
+
     return (
         <div className='container'>
             <div className='div-left'>
@@ -22,6 +34,8 @@ function HomePage() {
                 <p><strong>5.</strong></p>
 
                 <h3 className='h3_SeDivirta'>SE DIVIRTA!</h3>
+
+                <Footer />
 
             </div>
             <div className='div-right'>
