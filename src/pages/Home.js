@@ -8,16 +8,20 @@ import Footer from '../components/footer'
 import '../style/global.css';
 import '../style/homepage.css';
 
+
 function HomePage() {
     const [quizData, setQuizData] = useState([]);
 
-    useEffect(() => {
+    let dataQuiz = "";
+    dataQuiz = JSON.parse(localStorage.getItem("quizData"));
+    if(dataQuiz==null){
         fetchQuizData()
         .then(data => {
+            localStorage.setItem("quizData", JSON.stringify(data));
             setQuizData(data);
         })
         .catch(error => console.error('Erro ao buscar dados:', error));
-    }, []);
+    }
 
     return (
         <div className='container'>
