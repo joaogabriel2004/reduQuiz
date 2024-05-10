@@ -1,6 +1,6 @@
 import React from 'react';
-import reguaMarcas from '../assets/regua branca.png'
-import '../style/global.css';
+import reguaMarcas from '../../assets/regua branca.png'
+import './footer.css';
 
 
 function Footer() {

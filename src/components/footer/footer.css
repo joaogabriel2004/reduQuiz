@@ -1,0 +1,10 @@
+.linhaLogosFooter  {
+    position: absolute;
+    bottom: 10px;
+}
+
+@media (min-width: 768px) {
+    .linhaLogosFooter {
+        width: 70%;
+    } 
+}

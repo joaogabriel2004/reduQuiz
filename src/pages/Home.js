@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { fetchQuizData } from '../api';
 import iconeCorra from '../assets/ícone_branco.png'
-import Footer from '../components/footer'
+import Footer from '../components/footer/footer'
 
 import '../style/global.css';
 import '../style/homepage.css';
@@ -14,7 +14,7 @@ function HomePage() {
 
     let dataQuiz = "";
     dataQuiz = JSON.parse(localStorage.getItem("quizData"));
-    if(dataQuiz==null){
+    if(!dataQuiz){
         fetchQuizData()
         .then(data => {
             localStorage.setItem("quizData", JSON.stringify(data));
@@ -24,12 +24,12 @@ function HomePage() {
     }
 
     return (
-        <div className='container'>
+        <div className='homepage'>
             <div className='div-left'>
                 <img id="iconeCorra" src={iconeCorra} width='130px'></img>
                 <h3 className='h3_Titulo'>ReduQuiz de Danos</h3>
 
-                <p className='p_descricao'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque a tristique leo, vel malesuada felis. Praesent posuere sagittis nunc, et efficitur nibh. Sed a libero in orci condimentum congue a elementum nibh. Integer id mauris ut justo rhoncus scelerisque. Aliquam eu lorem cursus, bibendum erat feugiat, tincidunt eros. In sit amet tortor porttitor, dictum tortor vitae, maximus lectus. Suspendisse suscipit semper purus, sit amet convallis nulla faucibus eu. Aenean viverra posuere tincidunt.</p>                
+                <p className='p_descricao'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque a tristique leo, vel malesuada felis. Praesent posuere sagittis nunc, et efficitur nibh. Sed a libero in orci condimentum congue a elementum nibh. Integer id mauris ut justo rhoncus scelerisque. Aliquam eu lorem cursus, bibendum erat feugiat, tincidunt eros.</p>                
                 <h4 className='h4_ComoJogar'>COMO JOGAR</h4>
                 <p><strong>1.</strong></p>
                 <p><strong>2.</strong></p>
@@ -37,16 +37,12 @@ function HomePage() {
                 <p><strong>4.</strong></p>
                 <p><strong>5.</strong></p>
 
-                <h3 className='h3_SeDivirta'>SE DIVIRTA!</h3>
-
-                <Footer />
-
-            </div>
-            <div className='div-right'>
-                <input className='input_Nome' type='text' placeholder='Coloque aqui o seu nome'></input><br/>
                 <Link to="/Quiz">
                     <button>Começar a jogar</button>
                 </Link>
+
+                <Footer />
+
             </div>
         </div>
     );

@@ -1,84 +1,60 @@
-.container {
-    display: flex;
-}
-
 .div-left {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center; 
-    width: 60%;
     background-color: #17B0DE;
-    height: 100vh;
     color: white;
     text-align: center;
+    height: 100vh;
 }
 
 #iconeCorra {
-    margin-top: -70px;
+    max-width: 80%; 
+    height: auto; 
 }
 
 .h3_Titulo {
     font-size: 28px;
+    margin-top: 20px; 
 }
 
 .p_descricao {
     margin-top: 20px;
-    width: 80%;
+    width: 100%;
+    max-width: 1000px;
 }
 
 .h4_ComoJogar{
-    margin-top: 50px;
-    margin-bottom: 30px;
-}
-
-.h3_SeDivirta{
-    margin-top: 50px;
-}
-
-/*
-button {
-    height: 10%;
-    width: 20%;
-    position: absolute;
-    top: 40%;
-    left: 40%;
-    border-radius: 5px;
-    border: 2px solid #F59D15;
-    font-size: 24px;
-}
-*/
-
-.div-right {
-    display: flex;
-    flex-direction: column;
-    width: 40%;
-    align-items: center;
-    justify-content: center; 
-}
-
-.input_Nome {
-    border: 1px solid #F59D15;
-    height: 40px;
-    width: 70%;
-    padding-left: 15px;
-    outline: none;
-    border-radius: 5px;
-    font-size: 20px;
+    margin-top: 30px;
+    margin-bottom: 20px; 
 }
 
 button {
     width: 100%;
+    max-width: 300px;
     background-color: #F59D15;
     border: none;
     height: 40px;
     color: white;
     font-size: 20px;
     border-radius: 8px;
+    margin-top: 20px;
 }
 
 a {
     text-decoration: none;
     color: white;
-    width: 73%;
+    width: 100%;
+    max-width: 300px;
+    margin-top: 20px; 
+}
+
+
+@media (max-width: 600px) {
+    .p_descricao {
+        margin-top: 20px;
+        font-size: 13   px;
+        max-width: 1000px;
+    }
 }

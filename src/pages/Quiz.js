@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Footer from '../components/footer';
+import Footer from '../components/footer/footer';
 import '../style/global.css';
 import '../style/quiz.css';
 import { getQuizData, fetchQuizData } from '../api'; // Importando as funções do arquivo api.js
@@ -14,17 +14,12 @@ function QuizPage() {
     let numAcerto = 0;
 
     useEffect(() => {
-        const data = getQuizData();
-        if (data && data.length > 0) {
-            // Se os dados estiverem em cache, só vai prosseguir
-            setPerguntas(data);
+        let dataQuiz = "";
+        dataQuiz = JSON.parse(localStorage.getItem("quizData"));
+        if(!dataQuiz) {
+            window.location.href = "/";
         } else {
-            // Se os dados não estiverem em cache, buscar na API
-            fetchQuizData()
-            .then(data => {
-                setPerguntas(data);
-            })
-            .catch(error => console.error('Erro ao buscar dados:', error));
+            setPerguntas(dataQuiz);
         }
     }, []);
 
