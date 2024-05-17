@@ -4,7 +4,7 @@ let cachedQuizData = null;
 
 export const fetchQuizData = () => {
     console.log("Chamando a API...");
-    return fetch('http://localhost:3001/firestore/quiz')
+    return fetch('https://backend-reduquiz.onrender.com/firestore/quiz')
       .then(response => response.json())
       .then(data => {
         console.log("Dados recebidos:", data);
