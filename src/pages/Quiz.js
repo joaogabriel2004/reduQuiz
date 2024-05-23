@@ -1,17 +1,19 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import bcrypt from 'bcryptjs';
 import Footer from '../components/footer/footer';
 import '../style/global.css';
 import '../style/quiz.css';
-import { getQuizData, fetchQuizData } from '../api'; // Importando as funções do arquivo api.js
 
 function QuizPage() {
     const [counter, setCounter] = useState(10);
-    const [backgroundColor, setBackgroundColor] = useState(""); // Cor inicial do fundo
+    const [backgroundColor, setBackgroundColor] = useState("");
     const [perguntas, setPerguntas] = useState([]);
     const [indicePergunta, setIndicePergunta] = useState(0);
     const [shouldStartTimer, setShouldStartTimer] = useState(true);
-    let numAcerto = 0;
+    const [numAcerto, setNumAcerto] = useState(0);
 
+
+    /* Funçao responsável por verificar se tem alguma informação no localStorage e, se tiver, ele irá passar as perguntas para o quiz. Se não tiver, ele redirecionará o usuário para a página inicial */
     const loadQuizData = useCallback(() => {
         const dataQuiz = JSON.parse(localStorage.getItem("quizData"));
         if (!dataQuiz) {
@@ -25,6 +27,8 @@ function QuizPage() {
         loadQuizData();
     }, [loadQuizData]);
 
+
+    /* Função responsável pelo contador de tempo. Irá diminuir 1 a cada segundo e, quando chegar a 0, chamará a função apra passar de questão */
     useEffect(() => {
         if (!shouldStartTimer) return;
 
@@ -43,30 +47,37 @@ function QuizPage() {
         return () => clearInterval(timer);
     }, [indicePergunta, perguntas, shouldStartTimer]);
 
+
+    /* Função responsável por verificar se ainda tem pergunta e passar a questão ou encerrar o quiz */
     const handleNextQuestion = () => {
         if (indicePergunta < perguntas.length - 1) {
             setIndicePergunta(prevIndice => prevIndice + 1);
-            setCounter(10);  // Reiniciar o contador de tempo apenas se houver mais perguntas
+            setCounter(10); 
         } else {
             alert("Fim do Quiz!");
         }
     };
 
+
+    /* Função responsável pela formatação do tempo mm:ss */
     const formatTime = (time) => {
         const minutes = Math.floor(time / 60);
         const seconds = time % 60;
         return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
     };
 
+
+    /* Função responsável por analisar se a resposta selecionada está correta ou incorreta e contar +1 acerto ao total de acertos */
     const handleAnswerClick = (event) => {
         const selectedAnswer = event.target.id;
-        const correctAnswer = perguntas[indicePergunta]?.Gab;
-
-        if (selectedAnswer === correctAnswer) {
+        const correctAnswerHash = perguntas[indicePergunta]?.Gab;
+        
+        if (bcrypt.compareSync(selectedAnswer, correctAnswerHash)) {
             alert("Certo");
-            numAcerto++;
+            setNumAcerto(prevNumAcerto => prevNumAcerto + 1);
         } else {
             alert("Errado");
+            
         }
         
         handleNextQuestion();
